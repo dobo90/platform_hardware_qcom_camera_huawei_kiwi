@@ -3606,7 +3606,7 @@ int32_t QCameraParameters::setNumOfSnapshot()
                         ALOGE("%s: No memory for prop", __func__);
                         return NO_MEMORY;
                     }
-                    strcpy(prop, str_val);
+                    strlcpy(prop, str_val, strlen(str_val) + 1);
                     char *saveptr = NULL;
                     char *token = strtok_r(prop, ",", &saveptr);
                     while (token != NULL) {
@@ -6408,7 +6408,7 @@ int32_t QCameraParameters::parseGains(const char *gainStr, double &r_gain,
         ALOGE("%s: No memory for gains", __func__);
         return NO_MEMORY;
     }
-    strcpy(gains, gainStr);
+    strlcpy(gains, gainStr, strlen(gainStr) + 1);
     char *token = strtok_r(gains, ",", &saveptr);
     if (NULL == token) {
         ALOGE("%s:%d: strtok_r fails to find delimit", __func__,__LINE__);
@@ -8366,7 +8366,7 @@ uint8_t QCameraParameters::getBurstCountForAdvancedCapture()
               ALOGE("%s: No memory for prop", __func__);
               return NO_MEMORY;
           }
-          strcpy(prop, str_val);
+          strlcpy(prop, str_val, strlen(str_val) + 1);
           char *saveptr = NULL;
           char *token = strtok_r(prop, ",", &saveptr);
           while (token != NULL) {
