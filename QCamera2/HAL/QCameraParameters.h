@@ -318,6 +318,7 @@ public:
 
     //Longshot
     static const char KEY_QC_LONGSHOT_SUPPORTED[];
+    static const char KEY_QC_MAX_LONGSHOT_SNAP[];
 
     //livesnap support for 4K2K video resolutions
     static const char KEY_QC_4K2K_LIVESNAP_SUPPORTED[];
@@ -679,6 +680,7 @@ public:
     uint8_t getNumOfExtraBuffersForImageProc();
     uint8_t getNumOfExtraBuffersForVideo();
     uint8_t getNumOfExtraBuffersForPreview();
+    int getNumOfBuffersForLongshotLimitedMode();
     bool needThumbnailReprocess(uint32_t *pFeatureMask);
     inline bool isUbiFocusEnabled() {return m_bAFBracketingOn;};
     inline bool isMultiTouchFocusSelected() {return m_bMultiTouchFocusOn;};
@@ -727,6 +729,8 @@ public:
             isfssrEnabled() || isMultiTouchFocusEnabled();}
     int32_t setIntEvent(cam_int_evt_params_t params);
     uint8_t getLongshotStages();
+    inline bool isLongshotSnapsLimited() {return m_bIsLongshotLimited;};
+    inline int getMaxLongshotNum() {return m_nMaxLongshotNum;};
 
 private:
     int32_t setPreviewSize(const QCameraParameters& );
@@ -793,6 +797,7 @@ private:
     int32_t setFaceRecognition(const QCameraParameters& );
     int32_t setFlip(const QCameraParameters& );
     int32_t setBurstNum(const QCameraParameters& params);
+    int32_t setMaxLongshotNum(const QCameraParameters& params);
     int32_t setSnapshotFDReq(const QCameraParameters& );
     int32_t setStatsDebugMask();
     int32_t setISPDebugMask();
@@ -982,6 +987,8 @@ private:
     bool m_bTruePortraitOn;
     bool m_bSensorHDREnabled;             // if HDR is enabled
     bool m_bIsLowMemoryDevice;
+    bool m_bIsLongshotLimited;
+    int m_nMaxLongshotNum;
 };
 
 }; // namespace qcamera

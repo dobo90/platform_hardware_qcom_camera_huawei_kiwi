@@ -693,7 +693,8 @@ int32_t QCameraPostProcessor::processData(mm_camera_super_buf_t *frame)
     if (m_parent->needReprocess()) {
         if (!m_parent->isLongshotEnabled() ||
             (m_parent->isLongshotEnabled() &&
-             m_parent->isCaptureShutterEnabled())) {
+             (m_parent->isCaptureShutterEnabled() ||
+             m_parent->isLongshotSnapLimited()))) {
             //play shutter sound
             m_parent->playShutter();
         }
@@ -989,7 +990,8 @@ int32_t QCameraPostProcessor::processPPData(mm_camera_super_buf_t *frame)
 #endif
     if (m_parent->isLongshotEnabled() &&
          !getMultipleStages() &&
-         !m_parent->isCaptureShutterEnabled()) {
+         !m_parent->isCaptureShutterEnabled() &&
+         !m_parent->isLongshotSnapLimited()) {
         m_parent->playShutter();
     }
 
